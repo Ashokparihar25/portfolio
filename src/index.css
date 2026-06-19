@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 215 28% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 12%;
+
+    --primary: 210 70% 28%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 175 50% 36%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 18% 94%;
+    --muted-foreground: 215 14% 46%;
+
+    --accent: 175 50% 36%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 210 70% 28%;
+
+    --radius: 0.75rem;
+
+    --hero-gradient: linear-gradient(135deg, hsl(210 70% 28%) 0%, hsl(195 60% 32%) 50%, hsl(175 50% 36%) 100%);
+    --card-shadow: 0 1px 3px hsl(210 20% 50% / 0.06), 0 10px 30px hsl(210 20% 50% / 0.05);
+    --card-shadow-hover: 0 4px 12px hsl(210 20% 50% / 0.1), 0 20px 48px hsl(210 20% 50% / 0.08);
+    --glow-primary: 0 0 40px hsl(210 70% 28% / 0.15);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 215 28% 7%;
+    --foreground: 210 20% 92%;
+    --card: 215 24% 10%;
+    --card-foreground: 210 20% 92%;
+    --popover: 215 24% 10%;
+    --popover-foreground: 210 20% 92%;
+    --primary: 195 65% 52%;
+    --primary-foreground: 215 28% 7%;
+    --secondary: 175 50% 42%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 215 20% 16%;
+    --muted-foreground: 210 14% 55%;
+    --accent: 175 50% 42%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 215 20% 18%;
+    --input: 215 20% 18%;
+    --ring: 195 65% 52%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-6xl mx-auto px-5 sm:px-6 lg:px-8;
+  }
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--hero-gradient);
+  }
+  .gradient-bar {
+    width: 64px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--hero-gradient);
+  }
+  .section-header {
+    @apply mb-4;
+  }
+  .section-subtitle {
+    @apply text-muted-foreground text-sm md:text-base max-w-2xl mb-12;
+  }
+  .card-elevated {
+    @apply bg-card rounded-2xl border border-border;
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .card-elevated:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-4px);
+  }
+  .stat-block {
+    @apply bg-card rounded-2xl border border-border p-5 md:p-6 text-center;
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  }
+  .stat-block:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+  .kpi-number {
+    @apply text-2xl sm:text-3xl md:text-4xl font-heading font-800 gradient-text leading-none;
+  }
+  .kpi-label {
+    @apply text-[11px] sm:text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-heading font-600 text-sm transition-all duration-300;
+    background-image: var(--hero-gradient);
+    color: hsl(var(--primary-foreground));
+  }
+  .btn-primary:hover {
+    opacity: 0.92;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px hsl(210 70% 28% / 0.3);
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-heading font-600 text-sm border-2 border-primary text-primary transition-all duration-300;
+  }
+  .btn-outline:hover {
+    @apply bg-primary text-primary-foreground;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px hsl(210 70% 28% / 0.2);
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-heading font-600 text-sm text-muted-foreground transition-all duration-200;
+  }
+  .btn-ghost:hover {
+    @apply text-primary bg-primary/5;
+  }
+  .data-grid-bg {
+    background-image: radial-gradient(circle, hsl(210 18% 88% / 0.4) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .section-fade {
+    @apply opacity-0 translate-y-6;
+    animation: sectionFadeIn 0.7s ease-out forwards;
+  }
+  .pipeline-node {
+    @apply bg-card rounded-xl border-2 border-border p-4 text-center transition-all duration-300;
+    box-shadow: var(--card-shadow);
+  }
+  .pipeline-node:hover {
+    border-color: hsl(var(--primary) / 0.4);
+    box-shadow: var(--glow-primary);
+    transform: translateY(-2px);
+  }
+  .outcome-card {
+    @apply bg-card rounded-2xl border border-border p-6 md:p-8 relative overflow-hidden;
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .outcome-card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-3px);
+    border-color: hsl(var(--primary) / 0.25);
+  }
+  .outcome-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--hero-gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .outcome-card:hover::before {
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .font-800 {
+    font-weight: 800;
+  }
+  .font-600 {
+    font-weight: 600;
+  }
+}
+
+@keyframes sectionFadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
