@@ -38,7 +38,7 @@ const projectCtas = [
 ];
 
 const projectViewerTriggerClass =
-  "group inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-[11px] font-heading font-600 bg-primary/10 text-primary border border-primary/25 hover:bg-primary/15 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(187_92%_52%/0.15)] transition-all duration-300";
+  "group inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded-lg text-[11px] font-heading font-600 bg-primary/10 text-primary border border-primary/25 hover:bg-primary/15 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(187_92%_52%/0.15)] transition-all duration-300";
 
 export default function CaseStudies() {
   return (
@@ -67,7 +67,7 @@ export default function CaseStudies() {
                       <p className="text-xs text-muted-foreground mt-1">{s.meta}</p>
 
                       {s.viewers.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-4">
+                        <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4">
                           {s.viewers.map((viewer) => (
                             <DocumentViewerModal
                               key={viewer.label}

@@ -29,6 +29,7 @@ export default function Certifications() {
                         title={e.viewer.title}
                         subtitle={e.viewer.subtitle}
                         src={e.viewer.href}
+                        kind={e.viewer.kind}
                       />
                     )}
                   </div>

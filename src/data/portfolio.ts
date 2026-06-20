@@ -188,6 +188,7 @@ export const education = [
       title: "Evaluating the Impact of COVID-19 on Mental Health Using Global Datasets",
       subtitle: "MS Capstone · DATA 5130 · Advisor: Dr. Douglas MacDonald · Submitted April 11, 2025",
       href: capstoneDoc,
+      kind: "docx" as const,
     },
   },
   {

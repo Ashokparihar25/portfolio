@@ -10,6 +10,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import PptxScrollViewer from "@/components/PptxScrollViewer";
+import PdfScrollViewer from "@/components/PdfScrollViewer";
+import { fitDocxToViewport, isNarrowViewport, NARROW_VIEWPORT_QUERY } from "@/lib/viewerUtils";
 
 export type DocumentKind = "docx" | "pdf" | "pptx";
 
@@ -73,6 +75,7 @@ export default function DocumentViewerModal({
   const [pptxBuffer, setPptxBuffer] = useState<ArrayBuffer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [useScrollPdf, setUseScrollPdf] = useState(false);
   const loadIdRef = useRef(0);
   const pptxTimeoutRef = useRef<number | null>(null);
 
@@ -84,12 +87,22 @@ export default function DocumentViewerModal({
   };
 
   useEffect(() => {
+    setUseScrollPdf(isNarrowViewport());
+    const media = window.matchMedia(NARROW_VIEWPORT_QUERY);
+    const onChange = () => setUseScrollPdf(media.matches);
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
     if (!open || !isPdf) return;
 
     setLoading(true);
     setError(null);
-    setProgress("Opening PDF…");
+    setProgress(useScrollPdf ? "Loading PDF pages…" : "Opening PDF…");
     setShowScrollHint(false);
+
+    if (useScrollPdf) return;
 
     const fallback = window.setTimeout(() => {
       setLoading(false);
@@ -97,7 +110,7 @@ export default function DocumentViewerModal({
     }, 2500);
 
     return () => window.clearTimeout(fallback);
-  }, [open, isPdf, src]);
+  }, [open, isPdf, src, useScrollPdf]);
 
   useEffect(() => {
     if (!open || !isPptx) {
@@ -181,14 +194,16 @@ export default function DocumentViewerModal({
       const mammoth = await import("mammoth");
       const result = await mammoth.convertToHtml({ arrayBuffer: buffer });
       container.innerHTML = `<article class="doc-viewer-article">${result.value}</article>`;
+      if (isNarrowViewport()) fitDocxToViewport(container);
     };
 
     const renderWithDocxPreview = async (container: HTMLDivElement, buffer: ArrayBuffer) => {
+      const narrow = isNarrowViewport();
       const { renderAsync } = await import("docx-preview");
       await renderAsync(buffer, container, undefined, {
         className: "docx-viewer-page",
         inWrapper: true,
-        ignoreWidth: false,
+        ignoreWidth: narrow,
         ignoreHeight: false,
         breakPages: true,
         renderHeaders: true,
@@ -196,6 +211,7 @@ export default function DocumentViewerModal({
         renderFootnotes: true,
         renderEndnotes: true,
       });
+      if (narrow) fitDocxToViewport(container);
     };
 
     const loadDocument = async () => {
@@ -265,6 +281,7 @@ export default function DocumentViewerModal({
     setLoading(false);
     setProgress(null);
     setError(null);
+    setShowScrollHint(useScrollPdf);
   };
 
   const handlePdfError = () => {
@@ -306,12 +323,12 @@ export default function DocumentViewerModal({
       </DialogTrigger>
 
       <DialogContent
-        className="doc-viewer-modal max-w-[min(960px,96vw)] w-full h-[min(88vh,900px)] max-sm:h-[100dvh] max-sm:max-w-none max-sm:rounded-none max-sm:border-0 p-0 gap-0 overflow-hidden border-primary/20 bg-card/95 backdrop-blur-xl flex flex-col [&>button:last-of-type]:hidden"
+        className="doc-viewer-modal max-w-[min(960px,96vw)] w-full h-[min(88vh,900px)] max-md:fixed max-md:inset-0 max-md:left-0 max-md:top-0 max-md:translate-x-0 max-md:translate-y-0 max-md:w-screen max-md:max-w-none max-md:h-[100dvh] max-md:max-h-[100dvh] max-md:rounded-none max-md:border-0 p-0 gap-0 overflow-hidden border-primary/20 bg-card/95 backdrop-blur-xl flex flex-col [&>button:last-of-type]:hidden"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <div className="doc-viewer-modal-accent" aria-hidden="true" />
 
-        <DialogHeader className="relative z-30 shrink-0 px-5 py-4 sm:px-6 border-b border-border/60 bg-muted/30">
+        <DialogHeader className="relative z-30 shrink-0 px-4 py-3 sm:px-6 sm:py-4 border-b border-border/60 bg-muted/30 max-md:pt-[calc(0.75rem+env(safe-area-inset-top))]">
           <div className="flex items-start gap-3 pr-12">
             <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
               <HeaderIcon size={18} />
@@ -331,7 +348,7 @@ export default function DocumentViewerModal({
           <DialogClose asChild>
             <button
               type="button"
-              className="doc-viewer-close absolute right-4 top-4 z-50 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-background/80 text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/40"
+              className="doc-viewer-close absolute right-3 top-3 sm:right-4 sm:top-4 z-50 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-background/80 text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/40 max-md:top-[calc(0.75rem+env(safe-area-inset-top))] max-md:right-[calc(0.75rem+env(safe-area-inset-right))]"
               aria-label="Close document viewer"
             >
               <X size={18} />
@@ -342,18 +359,16 @@ export default function DocumentViewerModal({
         <div
           ref={scrollRef}
           className={`doc-viewer-scroll flex-1 min-h-0 relative ${
-            isPdf
+            isPdf && !useScrollPdf
               ? "doc-viewer-scroll-pdf overflow-hidden flex flex-col"
-              :             isPptx
-                ? "overflow-y-auto overflow-x-hidden overscroll-contain"
-                : "overflow-y-auto overflow-x-hidden overscroll-contain"
+              : "overflow-y-auto overflow-x-hidden overscroll-contain"
           }`}
         >
-          {showScrollHint && !loading && !error && !isPdf && (
+          {showScrollHint && !loading && !error && (!isPdf || useScrollPdf) && (
             <div className="doc-viewer-scroll-hint" aria-hidden="true">
               <ChevronDown size={14} className="doc-viewer-scroll-hint-icon" />
               <span>
-                {isPptx ? "Scroll down for more slides" : "Scroll down for more pages"}
+                {isPptx ? "Scroll down for more slides" : isPdf ? "Scroll down for more pages" : "Scroll down for more pages"}
               </span>
             </div>
           )}
@@ -392,7 +407,15 @@ export default function DocumentViewerModal({
             </div>
           )}
 
-          {isPdf && open && !error && (
+          {isPdf && open && !error && useScrollPdf && (
+            <PdfScrollViewer
+              src={src}
+              onReady={handlePdfLoad}
+              onError={handlePdfError}
+            />
+          )}
+
+          {isPdf && open && !error && !useScrollPdf && (
             <iframe
               key={src}
               src={pdfViewerSrc}
@@ -422,10 +445,12 @@ export default function DocumentViewerModal({
           )}
         </div>
 
-        <div className="shrink-0 flex flex-wrap items-center justify-between gap-3 px-5 py-3 sm:px-6 border-t border-border/60 bg-muted/20">
+        <div className="shrink-0 flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 border-t border-border/60 bg-muted/20 max-md:pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
           <p className="text-[10px] sm:text-xs text-muted-foreground flex items-center gap-1.5">
             <ScrollText size={12} className="text-primary/70 shrink-0" />
-            {footerCopy(kind)} · Press Esc to close
+            {footerCopy(kind)} ·{" "}
+            <span className="hidden md:inline">Press Esc to close</span>
+            <span className="md:hidden">Tap Close to exit</span>
           </p>
           <DialogClose asChild>
             <button

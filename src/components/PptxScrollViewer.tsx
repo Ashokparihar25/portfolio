@@ -1,22 +1,13 @@
 import { useEffect, useRef } from "react";
 import { parse } from "@pagus-kit/core";
 import { buildFontSubstitutes, renderSlide } from "@pagus-kit/renderer";
+import { measureViewerWidth } from "@/lib/viewerUtils";
 
 type PptxScrollViewerProps = {
   buffer: ArrayBuffer;
   onReady?: () => void;
   onError?: () => void;
 };
-
-function measureWidth(container: HTMLDivElement) {
-  const direct = container.clientWidth;
-  if (direct > 0) return direct;
-
-  const parent = container.parentElement?.clientWidth ?? 0;
-  if (parent > 0) return parent;
-
-  return 880;
-}
 
 function applyShrinkFit(root: ParentNode) {
   root.querySelectorAll<HTMLElement>("[data-pagus-shrink-fit]").forEach((el) => {
@@ -36,9 +27,9 @@ function applyShrinkFit(root: ParentNode) {
 function renderDeck(container: HTMLDivElement, buffer: ArrayBuffer, contentWidth: number) {
   return parse(buffer).then((presentation) => {
     const fontSubstitutes = buildFontSubstitutes(presentation.fonts, {});
-    const available = Math.max(280, contentWidth - 32);
+    const available = Math.max(280, contentWidth - 16);
     const scale = available / presentation.slideSize.width;
-    const scaledHeight = presentation.slideSize.height * scale;
+    const scaledHeight = (available * presentation.slideSize.height) / presentation.slideSize.width;
 
     container.innerHTML = "";
 
@@ -56,9 +47,6 @@ function renderDeck(container: HTMLDivElement, buffer: ArrayBuffer, contentWidth
       });
 
       viewEl.innerHTML = rendered.svg;
-      viewEl.style.width = `${rendered.width}px`;
-      viewEl.style.height = `${rendered.height}px`;
-
       slideEl.appendChild(viewEl);
 
       const label = document.createElement("span");
@@ -81,6 +69,7 @@ export default function PptxScrollViewer({ buffer, onReady, onError }: PptxScrol
   const containerRef = useRef<HTMLDivElement>(null);
   const notifiedRef = useRef(false);
   const renderIdRef = useRef(0);
+  const resizeTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     notifiedRef.current = false;
@@ -92,7 +81,6 @@ export default function PptxScrollViewer({ buffer, onReady, onError }: PptxScrol
 
     const run = async (width: number) => {
       try {
-        container.innerHTML = "";
         await renderDeck(container, buffer, width);
         if (cancelled || renderId !== renderIdRef.current || notifiedRef.current) return;
         notifiedRef.current = true;
@@ -105,34 +93,51 @@ export default function PptxScrollViewer({ buffer, onReady, onError }: PptxScrol
       }
     };
 
-    const attempt = () => {
-      const width = measureWidth(container);
+    const scheduleRender = (width: number, immediate = false) => {
+      if (resizeTimerRef.current != null) {
+        window.clearTimeout(resizeTimerRef.current);
+      }
+      if (immediate) {
+        void run(width);
+        return;
+      }
+      resizeTimerRef.current = window.setTimeout(() => {
+        if (!cancelled && width > 0) void run(width);
+      }, 150);
+    };
+
+    const attempt = (immediate = false) => {
+      const width = measureViewerWidth(container);
       if (width <= 0) return false;
-      void run(width);
+      scheduleRender(width, immediate);
       return true;
     };
 
-    if (!attempt()) {
+    if (!attempt(true)) {
       const tick = () => {
         if (cancelled) return;
-        if (!attempt()) requestAnimationFrame(tick);
+        if (!attempt(true)) requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
     }
 
     const observer = new ResizeObserver(() => {
       if (cancelled) return;
-      const width = measureWidth(container);
+      const width = measureViewerWidth(container);
       if (width <= 0) return;
-      void run(width);
+      scheduleRender(width, false);
     });
 
     observer.observe(container);
-    if (container.parentElement) observer.observe(container.parentElement);
+    const scrollParent = container.closest(".doc-viewer-scroll");
+    if (scrollParent) observer.observe(scrollParent);
 
     return () => {
       cancelled = true;
       renderIdRef.current += 1;
+      if (resizeTimerRef.current != null) {
+        window.clearTimeout(resizeTimerRef.current);
+      }
       observer.disconnect();
       container.innerHTML = "";
     };
