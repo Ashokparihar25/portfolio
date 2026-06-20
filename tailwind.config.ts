@@ -14,6 +14,7 @@ export default {
       fontFamily: {
         heading: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",

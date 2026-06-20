@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  assetsInclude: ["**/*.docx", "**/*.pptx"],
+  assetsInclude: ["**/*.docx", "**/*.pptx", "**/*.pdf"],
   server: {
     host: "::",
     port: 8080,

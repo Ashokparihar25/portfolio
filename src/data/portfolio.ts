@@ -6,8 +6,8 @@ import airCargoPptx from "@/assets/projects/Air_Cargo_Database_System.pptx";
 
 export const contact = {
   name: "Ashok Kumar Parihar",
-  title: "Data Analytics Professional",
-  headline: "Data Analyst | SQL · Python · Power BI · Tableau | ETL & Machine Learning",
+  title: "Data Analyst | Business Intelligence | SQL • Power BI • Python",
+  headline: "Data Analyst | SQL · Power BI · Tableau · Python | KPI Reporting & Dashboard Development",
   email: "ashokkumasirvi110@gmail.com",
   phone: "+1 (313) 213-3109",
   location: "Detroit, MI, USA",
@@ -15,35 +15,46 @@ export const contact = {
   linkedinLabel: "linkedin.com/in/ashok-kumar-parihar",
   github: "https://github.com/Ashokparihar25",
   githubLabel: "github.com/Ashokparihar25",
-  portfolioUrl: "https://www.linkedin.com/in/ashok-kumar-parihar",
+  portfolioUrl: "https://ashokparihar.vercel.app",
   resumeFilename: "Ashok_Kumar_Parihar_Resume.pdf",
 };
 
 export const summary = {
   short:
-    "Data analytics professional with 2+ years at Tata Consultancy Services, an MS in Applied Data Analytics from the University of Detroit Mercy (May 2025, CGPA 3.5), and 1+ year of nonprofit data analytics work at Saayam for All.",
+    "Data Analyst combining enterprise infrastructure operations, nonprofit analytics, reporting automation, and business intelligence — skilled in SQL, Python, Power BI, Tableau, and KPI dashboard development across 500+ server environments and global nonprofit platforms.",
   paragraphs: [
-    "I am a data analytics professional with 2+ years of experience at Tata Consultancy Services, specializing in IT infrastructure analytics, automation, and data-driven decision-making. I am proficient in SQL, Python, PowerShell, and machine learning, with hands-on experience in reporting, predictive modeling, and dashboard delivery.",
-    "I earned my Master of Science in Applied Data Analytics from the University of Detroit Mercy (graduated May 2025, CGPA 3.5). My capstone project — submitted to Dr. Douglas MacDonald — analyzed COVID-19 mental health medication usage using U.S. Census Household Pulse Survey data, Random Forest forecasting (R² = 0.94), and demographic trend analysis.",
-    "At UDM, I completed course projects in lung cancer prediction (Data Mining), air cargo database design (Database Design), and an AI-powered course registration chatbot (TiTAns Bot). I also served as a Graduate Assistant, Aeroponics Project Manager, Audio Assistant, and Research Assistant in the Vehicle Cyber Engineering Lab.",
-    "Since graduation, I have contributed to the Data Analytics team at Saayam for All, a 501(c)(3) nonprofit building a global volunteer-matching platform — delivering KPI dashboards, request/volunteer analytics, and chart-ready reporting APIs.",
+    "I am a Data Analyst with 3+ years of analytics and reporting experience spanning enterprise IT operations, nonprofit technology, and research environments. I specialize in SQL analytics, Power BI and Tableau dashboards, reporting automation, executive stakeholder reporting, and operational analytics that drive measurable business outcomes.",
+    "At Tata Consultancy Services, I served as a System Administrator on the Amway-Alticor client account — monitoring 500+ enterprise servers while delivering KPI reporting, PowerShell-based reporting automation, and incident trend analysis that contributed to a 20% reduction in downtime and 25% improvement in reporting efficiency.",
+    "At Saayam for All, I develop KPI dashboards and PostgreSQL reporting using SQL and Python — enabling leadership to monitor volunteer engagement, service requests, and platform utilization for a global nonprofit volunteer-matching platform.",
+    "I hold an MS in Applied Data Analytics from the University of Detroit Mercy (May 2025) with experience in vehicle telemetry analytics, healthcare trend forecasting, logistics SQL reporting, and process automation projects delivering quantifiable business impact.",
   ],
 };
 
 export const heroStats = [
-  { value: "2+", label: "Years at TCS" },
-  { value: "1+", label: "Year at Saayam" },
-  { value: "97.5%", label: "ML Model Accuracy" },
-  { value: "R² 0.94", label: "Capstone Model" },
-  { value: "25%", label: "Task Automation" },
-  { value: "Power BI", label: "SQL · Python · Tableau" },
+  { value: "4+", label: "Years Analytics Experience" },
+  { value: "500+", label: "Enterprise Servers Analyzed" },
+  { value: "25%", label: "Reporting Automation" },
+  { value: "20%", label: "Downtime Reduction" },
+  { value: "Power BI", label: "SQL · Tableau · Python" },
+  { value: "KPI", label: "Dashboards & BI Reporting" },
+];
+
+export const heroKeywords = [
+  "SQL",
+  "Power BI",
+  "Tableau",
+  "Python",
+  "PostgreSQL",
+  "KPI Dashboards",
+  "Excel",
+  "ETL",
 ];
 
 export const experiences = [
   {
     company: "Saayam for All",
     role: "Data Analyst",
-    period: "May 2025 – Jun 2026",
+    period: "May 2025 – Present",
     location: "Remote · San Jose, CA (Nonprofit)",
     highlight: "Analytics for global volunteer-matching platform (501(c)(3))",
     bullets: [
@@ -55,18 +66,16 @@ export const experiences = [
   },
   {
     company: "Tata Consultancy Services (TCS)",
-    role: "System Engineer — Amway-Alticor Client Project",
+    role: "System Administrator — Amway-Alticor Client",
     period: "Nov 2021 – Dec 2023",
     location: "Hyderabad, India",
-    highlight: "Automated 25% of tasks; reduced downtime 20% across 500+ servers",
+    highlight: "500+ servers · 25% reporting automation · 20% downtime reduction",
     bullets: [
-      "Utilized SQL to query and analyze large datasets from IT infrastructure systems, identifying trends and optimizing resource utilization across servers and virtual machines.",
-      "Developed and automated performance reports using PowerShell scripting to analyze server health metrics, enabling data-driven decision-making and improving system reliability.",
-      "Conducted data analysis on incident logs and infrastructure performance, presenting actionable insights to reduce system downtime and streamline operations.",
-      "Created dashboards and visual reports to monitor key performance indicators (KPIs) for server environments, facilitating proactive management and reporting.",
-      "Generated compliance reports and audited server activities, ensuring alignment with organizational standards and security protocols.",
-      "Collaborated with cross-functional teams to analyze process gaps and implement automation solutions, increasing operational efficiency by reducing manual effort.",
-      "Supported Amway-Alticor infrastructure operations — migrated and upgraded 500+ Windows servers (2008/2012 to 2019 OS), maintaining system health through VMware, SCCM, and Active Directory administration.",
+      "Monitored and administered 500+ enterprise Windows servers for Amway-Alticor client operations, leveraging SQL and incident log analysis to identify infrastructure trends and support a 20% reduction in system downtime.",
+      "Automated KPI and performance reporting workflows using PowerShell and SQL, reducing manual reporting effort by 25% and improving service availability visibility for cross-functional stakeholders.",
+      "Conducted root-cause analysis on infrastructure incidents and server health metrics, delivering operational analytics and trend reports supporting process improvement and compliance reporting.",
+      "Generated compliance audit reports and executive-ready performance summaries aligned with organizational standards, strengthening operational intelligence for enterprise infrastructure teams.",
+      "Collaborated with cross-functional teams on incident management, service availability monitoring, and infrastructure trend analysis across VMware, SCCM, and Active Directory environments.",
     ],
   },
   {
@@ -121,50 +130,48 @@ export const experiences = [
 
 export const skillGroups = [
   {
-    title: "Programming & Analytics",
-    skills: [
-      "Python (pandas, scikit-learn, matplotlib)",
-      "SQL (PostgreSQL, MySQL, Oracle)",
-      "R",
-      "PowerShell",
-      "Jupyter Notebooks",
-      "Data Cleaning & ETL",
-      "Exploratory Data Analysis",
-      "Feature Selection",
-      "Statistical Modeling",
-    ],
-  },
-  {
-    title: "BI, Visualization & Statistics",
+    title: "Business Intelligence & Reporting",
     skills: [
       "Power BI",
       "Tableau",
-      "Excel Dashboards",
-      "STATA",
-      "SPSS",
-      "Matplotlib",
-      "Seaborn",
-      "KPI Reporting",
-      "Data Storytelling",
+      "KPI Dashboards",
+      "Executive Reporting",
+      "Advanced Excel",
+      "DAX",
+      "Power Query",
+      "Stakeholder Reporting",
+      "Operational Reporting",
+      "Ad Hoc Analysis",
     ],
   },
   {
-    title: "ML, Big Data & Cloud",
+    title: "SQL & Data Analytics",
     skills: [
-      "Scikit-learn",
-      "PyTorch",
-      "TensorFlow",
-      "Random Forest",
-      "Logistic Regression",
-      "Decision Tree",
-      "Isolation Forest",
-      "Apache Spark",
-      "Hadoop",
-      "Snowflake",
-      "Amazon Redshift",
-      "MongoDB",
+      "SQL (PostgreSQL, MySQL, SQL Server)",
+      "Python (pandas, NumPy)",
+      "R",
+      "ETL & Data Transformation",
+      "Data Profiling",
+      "Data Quality Management",
+      "Trend Analysis",
+      "Root Cause Analysis",
+      "Forecasting",
+      "Statistical Analysis",
+    ],
+  },
+  {
+    title: "Tools, Cloud & Collaboration",
+    skills: [
       "AWS",
       "Git / GitHub",
+      "Jupyter Notebooks",
+      "JSON APIs",
+      "Business Intelligence",
+      "Reporting Automation",
+      "Requirements Gathering",
+      "Cross-Functional Collaboration",
+      "Process Improvement",
+      "Performance Metrics",
     ],
   },
 ];
@@ -176,14 +183,19 @@ export const education = [
     year: "Graduated May 2025 · CGPA 3.5",
     detail:
       "Capstone (DATA 5130): Evaluating the Impact of COVID-19 on Mental Health Using Global Datasets — Advisor: Dr. Douglas MacDonald · Student ID: T02208727 · Submitted April 11, 2025",
-    download: { label: "Download Capstone Report", href: capstoneDoc, filename: "Capstone_COVID19_Mental_Health_Analytics.docx" },
+    viewer: {
+      label: "View Capstone Report",
+      title: "Evaluating the Impact of COVID-19 on Mental Health Using Global Datasets",
+      subtitle: "MS Capstone · DATA 5130 · Advisor: Dr. Douglas MacDonald · Submitted April 11, 2025",
+      href: capstoneDoc,
+    },
   },
   {
     degree: "Bachelor of Technology in Mechanical Engineering",
     school: "Anurag University, Hyderabad, India",
     year: "Graduated 2021 · CGPA 7.98",
     detail: null,
-    download: null,
+    viewer: null,
   },
 ];
 
@@ -251,9 +263,7 @@ export const projects = [
       { metric: "19.22%", desc: "Jan 2025 forecast" },
       { metric: "3,800+", desc: "Survey records" },
     ],
-    downloads: [
-      { label: "Capstone Report (DOCX)", href: capstoneDoc, filename: "Capstone_COVID19_Mental_Health_Analytics.docx" },
-    ],
+    viewers: [{ label: "View Capstone Report", href: capstoneDoc, kind: "docx" as const }],
     resumeLine:
       "Capstone: COVID-19 mental health medication analytics using U.S. Census Pulse Survey (3,800+ records); Random Forest Regressor achieved R² = 0.94, RMSE = 1.84; forecasted 19.22% usage for ages 18–29 in Jan 2025.",
   },
@@ -273,9 +283,9 @@ export const projects = [
       { metric: "12", desc: "Selected features" },
       { metric: "3", desc: "Models compared" },
     ],
-    downloads: [
-      { label: "Research Paper (PDF)", href: lungCancerPdf, filename: "Lung_Cancer_Prediction_ML.pdf" },
-      { label: "Presentation (PPTX)", href: lungCancerPptx, filename: "Lung_Cancer_Prediction_ML.pptx" },
+    viewers: [
+      { label: "View Research Paper", href: lungCancerPdf, kind: "pdf" as const },
+      { label: "View Presentation", href: lungCancerPptx, kind: "pptx" as const },
     ],
     resumeLine:
       "Lung Cancer Prediction (Data Mining): 980 samples, 12 features; Decision Tree & Random Forest achieved 97.5% accuracy; top predictors — coughing of blood, wheezing, chest pain.",
@@ -296,9 +306,7 @@ export const projects = [
       { metric: "MySQL", desc: "Database platform" },
       { metric: "ER", desc: "Diagram designed" },
     ],
-    downloads: [
-      { label: "Project Presentation (PPTX)", href: airCargoPptx, filename: "Air_Cargo_Database_System.pptx" },
-    ],
+    viewers: [{ label: "View Presentation", href: airCargoPptx, kind: "pptx" as const }],
     resumeLine:
       "Air Cargo Database System: MySQL 3NF schema with Shipment Tracking, Customer Shipment History, and Carrier Performance SQL reports.",
   },
@@ -318,9 +326,7 @@ export const projects = [
       { metric: "1 mo", desc: "Measured impact" },
       { metric: "AI", desc: "Conversational bot" },
     ],
-    downloads: [
-      { label: "Project Presentation (PPTX)", href: titansBotPptx, filename: "TITANs_Bot_Course_Registration.pptx" },
-    ],
+    viewers: [{ label: "View Presentation", href: titansBotPptx, kind: "pptx" as const }],
     resumeLine:
       "TiTAns Bot: NLP chatbot (chainlit, langchain) for UDM course registration; increased successful registrations by 25% in the first month.",
   },
@@ -340,82 +346,164 @@ export const projects = [
       { metric: "500+", desc: "Servers migrated" },
       { metric: "KPI", desc: "Dashboard reporting" },
     ],
-    downloads: [],
+    viewers: [],
     resumeLine:
       "TCS Amway-Alticor: SQL/PowerShell KPI dashboards, incident log analytics; automated 25% of tasks, reduced downtime 20% across 500+ servers.",
   },
 ];
 
 export const contactHighlights = [
-  "2+ years data analytics at TCS (Amway-Alticor)",
-  "1+ year Data Analytics at Saayam for All",
-  "MS Applied Data Analytics, UDM (CGPA 3.5)",
-  "Capstone: COVID-19 mental health forecasting",
-  "Lung Cancer ML — 97.5% model accuracy",
-  "SQL, Python, Power BI, Tableau, scikit-learn",
+  "Data Analyst · TCS System Administrator (Amway-Alticor) · Saayam for All",
+  "SQL, Power BI, Tableau, Python, PostgreSQL, Advanced Excel",
+  "500+ servers · 25% reporting automation · 20% downtime reduction",
+  "KPI dashboards, executive reporting, and operational analytics",
+  "MS Applied Data Analytics, UDM (May 2025 · CGPA 3.5)",
+  "Portfolio: ashokparihar.vercel.app",
 ];
 
 export const contactTags = [
   "SQL · Python · R",
-  "Power BI · Tableau",
-  "Scikit-learn · ML",
+  "Power BI · Tableau · Excel",
+  "KPI Reporting · Dashboards",
   "PostgreSQL · MySQL",
-  "Spark · AWS",
-  "ETL · Dashboards",
+  "Business Intelligence",
+  "Stakeholder Reporting",
 ];
 
 export const aboutSkillCards = [
-  { label: "Data & SQL", desc: "PostgreSQL, MySQL, Oracle, Snowflake, Amazon Redshift, MongoDB" },
-  { label: "BI & Visualization", desc: "Power BI, Tableau, Excel dashboards, KPI reporting, Matplotlib" },
-  { label: "ML & Statistics", desc: "Scikit-learn, PyTorch, TensorFlow, STATA, SPSS, ETL & data cleaning" },
-  { label: "Big Data & Cloud", desc: "Apache Spark, Hadoop, AWS, Git, Jupyter Notebooks" },
+  { label: "Business Intelligence", desc: "Power BI, Tableau, KPI dashboards, executive reporting, DAX, and operational analytics" },
+  { label: "SQL & Analytics", desc: "PostgreSQL, MySQL, SQL Server, Python, pandas, trend analysis, and ad hoc reporting" },
+  { label: "Reporting & Automation", desc: "Advanced Excel, Power Query, reporting automation, ETL workflows, and data quality management" },
+  { label: "Cloud & Collaboration", desc: "AWS, GitHub, JSON APIs, stakeholder management, and cross-functional analytics delivery" },
 ];
 
-/** Resume PDF — single 720×1520 page; healthcare template density with portfolio content */
+/** Resume PDF — recruiter-optimized, interview-defensible, ATS-aligned */
 export const resume = {
   pageSize: [720, 1520] as [number, number],
-  title: "Data Analyst",
+  title: "Data Analyst | Business Intelligence | SQL • Power BI • Python",
   summary:
-    "Data Analyst with 3+ years of analytics experience delivering data-driven solutions across enterprise IT operations, nonprofit technology, and academic research environments. Experienced generating insights through SQL analysis, KPI dashboard reporting, trend monitoring, and predictive modeling across large-scale operational datasets. Proven expertise analyzing infrastructure incident logs, volunteer platform metrics, and survey datasets exceeding 3,800+ records. Proficient in SQL, Python, Power BI, Tableau, and Advanced Excel for building analytics pipelines, ETL workflows, machine learning models, and executive dashboards. Hands-on experience with PostgreSQL, MySQL, AWS, scikit-learn, and cross-functional stakeholder reporting enabling data-driven decision making.",
-  skillCategories: [
+    "Data Analyst combining enterprise infrastructure operations, nonprofit analytics, reporting automation, and business intelligence expertise across automotive telemetry, healthcare, and logistics environments. Skilled in advanced SQL (joins, CTEs, window functions), Python, Power BI, Tableau, PostgreSQL, and Advanced Excel with proven success building KPI dashboards, self-service reporting, requirements gathering, and executive stakeholder reporting across 500+ server environments and global nonprofit platforms. MS in Applied Data Analytics (University of Detroit Mercy, Detroit, MI, 2025). Delivered measurable impact including 25% reporting automation improvement, 20% downtime reduction, and analytics-driven process optimization across operational, healthcare, and manufacturing-adjacent analytics use cases.",
+  coreCompetencies: [
+    "Business Intelligence",
+    "Data Analysis",
+    "KPI Reporting",
+    "Dashboard Development",
+    "SQL Analytics",
+    "Data Visualization",
+    "Reporting Automation",
+    "Operational Analytics",
+    "Executive Reporting",
+    "Stakeholder Reporting",
+    "Requirements Gathering",
+    "Self-Service Analytics",
+    "ETL & Data Transformation",
+    "Root Cause Analysis",
+    "Trend Analysis",
+    "Data Quality Management",
+    "Data Profiling",
+    "Statistical Analysis",
+    "Predictive Analytics",
+    "Process Improvement",
+    "Performance Metrics",
+    "Ad Hoc Analysis",
+    "Data Governance",
+    "Manufacturing Analytics",
+  ],
+  technicalStack: [
+    { label: "Languages", items: "Advanced SQL (Joins, CTEs, Window Functions), Python, R, PowerShell" },
+    { label: "Visualization", items: "Power BI, Tableau, Excel, DAX, Power Query" },
+    { label: "Databases", items: "PostgreSQL, MySQL, SQL Server" },
+    { label: "Analytics", items: "Pandas, NumPy, Scikit-Learn, Jupyter Notebook" },
+    { label: "Cloud & Tools", items: "AWS, GitHub, ETL Pipelines, APIs, MQTT" },
+    { label: "Methods", items: "Data Modeling, Dimensional Modeling, Forecasting, KPI Monitoring" },
+  ],
+  experience: [
     {
-      label: "Data Analytics & Business Intelligence",
-      items:
-        "Data Analysis, Data Analytics, Business Intelligence, Predictive Analytics, Exploratory Data Analysis (EDA), Descriptive Analytics, Statistical Analysis, Trend Analysis, Root Cause Analysis, KPI Reporting, Dashboard Development, Data Visualization, Operational Analytics, Decision Support Analytics",
+      role: "Data Analyst",
+      company: "Saayam for All",
+      location: "Remote, USA",
+      period: "May 2025 – Present",
+      client: null as string | null,
+      bullets: [
+        "Gathered reporting requirements from cross-functional stakeholders and developed KPI dashboards and PostgreSQL reporting solutions using SQL and Python, enabling leadership to monitor volunteer engagement, service requests, and platform utilization trends.",
+        "Built API-driven reporting workflows and automated analytics pipelines, improving reporting efficiency and reducing manual data preparation for Super Admin dashboard widgets and executive reporting deliverables.",
+        "Performed trend analysis and data profiling on operational datasets to identify utilization patterns, supporting strategic decision-making for volunteer matching and beneficiary outreach initiatives.",
+        "Conducted data validation and quality checks that improved reporting accuracy and strengthened organizational data standards for nonprofit directory and engagement analytics.",
+      ],
     },
     {
-      label: "Programming & Query Languages",
-      items:
-        "SQL (Advanced Queries, Joins, CTEs, Window Functions, Query Optimization), Python, R Programming, PowerShell, Advanced Excel (Pivot Tables, Power Query, Lookup Functions)",
+      role: "System Administrator",
+      company: "Tata Consultancy Services (TCS)",
+      location: "Hyderabad, India",
+      period: "Nov 2021 – Dec 2023",
+      client: "Client: Amway-Alticor",
+      bullets: [
+        "Monitored and administered 500+ enterprise Windows servers for Amway-Alticor client operations, leveraging SQL and incident log analysis to identify infrastructure trends and support a 20% reduction in system downtime.",
+        "Automated KPI and performance reporting workflows using PowerShell and SQL, reducing manual reporting effort by 25% and improving service availability visibility for cross-functional stakeholders.",
+        "Conducted root-cause analysis on infrastructure incidents and server health metrics, delivering operational analytics and trend reports supporting process improvement and compliance reporting initiatives.",
+        "Generated compliance audit reports and executive-ready performance summaries aligned with organizational standards, strengthening operational intelligence for enterprise infrastructure teams.",
+        "Collaborated with cross-functional teams on incident management, service availability monitoring, and infrastructure trend analysis across VMware, SCCM, and Active Directory environments.",
+      ],
     },
     {
-      label: "Data Visualization & Reporting Tools",
-      items:
-        "Power BI, Tableau, Power Query, DAX, Matplotlib, Seaborn, Interactive Dashboard Development, Executive Reporting, Self-Service BI Reporting, KPI Dashboards",
+      role: "Graduate Data Analyst & Research Assistant",
+      company: "University of Detroit Mercy",
+      location: "Detroit, MI, USA",
+      period: "Jan 2024 – Apr 2025",
+      client: null as string | null,
+      bullets: [
+        "Performed vehicle telemetry, CAN bus, and automotive manufacturing-adjacent analytics in the Vehicle Cyber Engineering Lab using Python, developing automated log-to-CSV pipelines and MQTT data transmission workflows for remote monitoring.",
+        "Built Python automation and statistical analysis workflows for CAN bus security research, supporting data collection, data cleaning, and dashboard reporting for research stakeholders.",
+        "Conducted survey analytics and report writing for Boys and Girls Club community impact research, delivering stakeholder reports through structured data collection and Excel-based visualization.",
+        "Developed Excel dashboard reporting and trend analysis for aeroponics research and podcast engagement analytics, improving operational visibility for research and content planning initiatives.",
+      ],
+    },
+  ],
+  projectEntries: [
+    {
+      name: "Healthcare Analytics — Mental Health Prediction & Forecasting",
+      tools: "SQL, Python, Random Forest, Excel, U.S. Census Pulse Survey",
+      bullets: [
+        "Analyzed 3,800+ survey records using SQL and Python to identify demographic mental health medication trends, delivering executive-ready reports for healthcare service planning and stakeholder decision-making.",
+        "Built Random Forest forecasting models achieving R² = 0.94, supporting trend analysis and resource allocation recommendations for continued mental health service demand.",
+        "Performed data cleansing, outlier removal, and correlation analysis to strengthen reporting accuracy and data quality for operational healthcare analytics deliverables.",
+        "Presented findings with demographic visualizations and temporal trend dashboards supporting data-driven healthcare planning and executive reporting requirements.",
+      ],
     },
     {
-      label: "Machine Learning & Statistical Methods",
-      items:
-        "Machine Learning, Predictive Modeling, Regression Analysis, Classification Models, Forecasting, Feature Engineering, Model Evaluation, Random Forest, Logistic Regression, Decision Tree, Isolation Forest, Scikit-learn, Supervised Learning, Data Mining",
+      name: "Clinical Risk Analytics — Patient Screening & Reporting",
+      tools: "SQL, Python, Excel, Pandas, Scikit-Learn",
+      bullets: [
+        "Analyzed 980 patient records to identify high-risk indicators for early screening support, delivering classification reports with 97.5% accuracy for operational decision support.",
+        "Built comparative performance reports across predictive models, enabling stakeholders to evaluate precision, recall, and business applicability of clinical risk reporting workflows.",
+        "Applied data profiling, feature selection, and data quality checks to ensure reliable reporting outputs for clinical analytics and risk assessment use cases.",
+        "Delivered executive summary visualizations highlighting top risk predictors to support data-driven prioritization of screening and outreach initiatives.",
+      ],
     },
     {
-      label: "Python Libraries & Analytics Tools",
-      items: "Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Jupyter Notebooks, chainlit, langchain, NLP",
+      name: "Logistics Reporting & SQL Analytics — Air Cargo Operations",
+      tools: "MySQL, SQL, ER Modeling, Excel Reporting",
+      bullets: [
+        "Designed a normalized MySQL database supporting real-time shipment tracking and operational reporting across customers, carriers, cargo, routes, and invoices.",
+        "Built Shipment Tracking, Customer Shipment History, and Carrier Performance SQL reports, enabling business teams to monitor delivery performance and logistics KPIs.",
+        "Established entity relationships and data modeling constraints supporting scalable reporting environments and ad hoc operational analysis for logistics teams.",
+        "Delivered SQL reporting logic and database documentation that improved visibility into carrier performance metrics and reduced manual shipment tracking effort.",
+      ],
     },
     {
-      label: "Data Engineering & Databases",
-      items:
-        "ETL Processes, Data Pipelines, Data Transformation, Data Integration, Data Modeling, Dimensional Modeling (3NF), Data Cleansing, Data Validation, Data Profiling, Workflow Automation, MySQL, PostgreSQL, SQL Server",
+      name: "Course Registration Analytics Assistant — Process Automation",
+      tools: "Python, NLP, SQL, Excel, chainlit",
+      bullets: [
+        "Developed a Python and NLP-powered registration assistant automating course enrollment workflows, reducing manual advisor workload and improving student self-service efficiency.",
+        "Increased successful course registrations by 25% in the first month through process automation, intent detection, and user interaction tracking for operational reporting.",
+        "Built enrollment trend reports and registration query analytics, enabling administrators to monitor performance metrics and optimize registration workflows.",
+        "Collaborated with cross-functional teammates to deliver a scalable self-service solution supporting prerequisites, schedules, and enrollment reporting requirements.",
+      ],
     },
-    {
-      label: "Cloud & Collaboration Platforms",
-      items: "AWS, Git, GitHub, JSON APIs, MQTT, Cross-Functional Collaboration, Stakeholder Communication, Agile Analytics Support",
-    },
-    {
-      label: "Methods Applied in Experience Below",
-      items:
-        "Incident Log Analysis, Server Health Monitoring, Compliance Reporting, Survey Design, Data Collection, Anomaly Detection, Correlation Analysis, Feature Importance Analysis, NGO Directory Analytics",
-    },
+  ],
+  educationLines: [
+    "Master's in Applied Data Analytics | University of Detroit Mercy | Detroit, MI | May 2025 · CGPA 3.5",
+    "Bachelor's in Mechanical Engineering | Anurag University | Hyderabad, India | Jun 2021 · CGPA 7.98",
   ],
   certifications: [
     { title: "Excel Skills Job Simulation", org: "JPMorgan Chase & Co." },
@@ -424,92 +512,18 @@ export const resume = {
     { title: "Data Science Certification Program", org: "Simplilearn" },
     { title: "Responsible Conduct of Research Course 1", org: "Research Ethics Certification" },
   ],
-  experience: [
+  achievements: [
     {
-      role: "Data Analyst",
-      company: "Saayam for All",
-      location: "Remote, USA",
-      period: "May 2025 – Jun 2026",
-      bullets: [
-        "Built KPI dashboards and analytics reports for a nonprofit volunteer-matching platform, delivering request volume trends, volunteer activity analysis, and application metrics using Python, SQL, and PostgreSQL on AWS.",
-        "Collaborated with Data Engineering and Frontend teams via GitHub issue tracking to deliver chart-ready JSON APIs for Super Admin dashboard widgets supporting data-driven platform monitoring.",
-        "Analyzed structured operational datasets to identify utilization patterns and performance trends, enabling stakeholders to improve volunteer matching and beneficiary outreach initiatives.",
-        "Strengthened data quality and reporting readiness for NGO organization directory initiatives through data profiling, validation, and structured analytics workflows.",
-      ],
+      title: "First Prize — Detroit Urban Health AI Challenge (Chatbot AI Track)",
+      desc: "Built an AI-powered healthcare chatbot solution using Generative AI, improving patient support workflows through dataset training, response optimization, and user-focused analytics.",
     },
     {
-      role: "Data Analyst – Infrastructure & KPI Analytics",
-      company: "Tata Consultancy Services (TCS)",
-      location: "Hyderabad, India",
-      period: "Nov 2021 – Dec 2023",
-      bullets: [
-        "Analyzed large-scale IT infrastructure and incident log datasets using advanced SQL queries and Python/PowerShell automation, identifying utilization trends and reducing system downtime by approximately 20% across 500+ servers.",
-        "Developed automated performance reports and KPI dashboards for server health monitoring, enabling data-driven decision-making and automating 25% of manual reporting tasks for Amway-Alticor client operations.",
-        "Conducted trend analysis on infrastructure performance data and presented actionable insights to cross-functional teams, improving operational efficiency through process gap remediation.",
-        "Created visual reports and compliance audit summaries aligned with organizational standards, strengthening reliability of enterprise analytics reporting environments.",
-      ],
+      title: "Vehicle Telemetry Analytics Research — VCE Lab",
+      desc: "Developed CAN bus analytics pipelines and MQTT data transmission workflows for vehicle telemetry monitoring, supporting security research and remote operational reporting.",
     },
     {
-      role: "Graduate Data Analyst & Research Assistant",
-      company: "University of Detroit Mercy",
-      location: "Detroit, MI, USA",
-      period: "Jan 2024 – Apr 2025",
-      bullets: [
-        "Performed anomaly detection and CAN ID classification using Isolation Forest and Random Forest models in Python, achieving over 99% accuracy on vehicle telemetry datasets at the Vehicle Cyber Engineering Lab.",
-        "Developed Python scripts to automate CAN log-to-CSV preprocessing pipelines and built secure MQTT-based data transmission workflows for remote monitoring and analytics.",
-        "Conducted data analysis and report writing for Boys and Girls Club community impact research, including survey design, data collection, cleaning, and stakeholder visualizations.",
-        "Built Excel-based performance tracking dashboards for aeroponics research and developed podcast listener engagement analytics to improve content planning and operational reporting.",
-      ],
+      title: "CAN Bus Security Analytics",
+      desc: "Applied Python automation and statistical analysis to CAN bus datasets, supporting data-driven security research and dashboard reporting for automotive telemetry environments.",
     },
   ],
-  projectEntries: [
-    {
-      name: "COVID-19 Mental Health Capstone Analytics",
-      tools: "Python, Scikit-learn, SQL, Matplotlib, Seaborn, U.S. Census Pulse Survey",
-      bullets: [
-        "Analyzed 3,800+ U.S. Census Household Pulse Survey records using data cleaning, label encoding, IQR outlier removal, and correlation analysis to evaluate mental health medication usage trends.",
-        "Built a Random Forest Regressor forecasting model achieving R² = 0.94 and RMSE = 1.84, predicting 19.22% medication usage for the 18–29 age group in January 2025.",
-        "Delivered demographic bar charts, temporal trend visualizations, and feature importance analysis supporting data-driven mental health service planning.",
-        "Applied statistical modeling and exploratory data analysis workflows under faculty advisor Dr. Douglas MacDonald (DATA 5130 Capstone).",
-      ],
-    },
-    {
-      name: "Lung Cancer Predictive Analytics",
-      tools: "Python, Pandas, Scikit-learn, SQL, Matplotlib, Kaggle Dataset",
-      bullets: [
-        "Preprocessed 980 patient samples with 12 selected features using IQR outlier removal, one-hot encoding, Min-Max normalization, and Information Gain feature selection.",
-        "Trained and compared Logistic Regression, Decision Tree, and Random Forest models with 70/30 train-test split and 10-fold cross-validation.",
-        "Achieved 97.5% classification accuracy with Decision Tree and Random Forest; top predictors included coughing of blood, wheezing, and chest pain.",
-        "Produced model comparison charts for accuracy, precision, recall, and F1-score supporting early risk identification use cases.",
-      ],
-    },
-    {
-      name: "Air Cargo Database & SQL Reporting",
-      tools: "MySQL, SQL, ER Modeling, Database Design",
-      bullets: [
-        "Designed a normalized relational database in MySQL through 1NF, 2NF, and 3NF for shipment tracking across customers, carriers, cargo, routes, and invoices.",
-        "Built Shipment Tracking, Customer Shipment History, and Carrier Performance SQL reports for operational analytics and logistics reporting.",
-        "Established primary and foreign key constraints and entity relationships supporting scalable reporting environments for analytics teams.",
-        "Delivered database documentation and SQL query logic supporting real-time shipment status and carrier performance monitoring.",
-      ],
-    },
-    {
-      name: "TiTAns Bot — Course Registration Analytics",
-      tools: "Python, NLP, chainlit, langchain, sentence_transformers",
-      bullets: [
-        "Developed a Python-based conversational AI chatbot using NLP lemmatization, chainlit, and langchain to streamline University of Detroit Mercy course registration.",
-        "Implemented intent detection, entity extraction, and automated response logic to reduce manual advisor workload and improve student self-service enrollment.",
-        "Increased successful course registrations by 25% in the first month through workflow automation and user interaction tracking for process improvement.",
-        "Collaborated with engineering teammates to deliver an AI-powered registration assistant supporting prerequisites, schedules, and enrollment queries.",
-      ],
-    },
-  ],
-  educationLines: [
-    "Master's in Applied Data Analytics | University of Detroit Mercy | Detroit, USA | May 2025",
-    "Bachelor's in Mechanical Engineering | Anurag University | Hyderabad, India | Jun 2021",
-  ],
-  achievement: {
-    title: "First Prize — Detroit Urban Health AI Challenge (Chatbot AI Track)",
-    desc: "Collaborated on designing and developing an Insomnia Personal Assistant Chatbot using Generative AI on the Scholar AID platform. Created and trained datasets, refined bot responses, and enhanced functionality to assist patients with insomnia management.",
-  },
 };

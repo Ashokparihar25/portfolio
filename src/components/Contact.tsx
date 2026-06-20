@@ -1,73 +1,114 @@
-import { MapPin, Mail, Linkedin, Github, ArrowUpRight, CheckCircle, Phone } from "lucide-react";
+import {
+  MapPin,
+  Mail,
+  Linkedin,
+  Github,
+  ArrowUpRight,
+  CheckCircle,
+  Phone,
+  ExternalLink,
+} from "lucide-react";
 import { contact, contactHighlights, contactTags } from "@/data/portfolio";
 import { useResumeDownload } from "@/hooks/useResumeDownload";
 
 export default function Contact() {
   const { handleDownload, downloading } = useResumeDownload();
+  const mailto = `mailto:${contact.email}?subject=Data%20Analyst%20Opportunity%20%E2%80%94%20Ashok%20Kumar%20Parihar`;
 
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.03] data-grid-bg" />
-      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--hero-gradient)" }} />
+    <section id="contact" className="section-padding section-alt relative overflow-hidden">
+      <div className="absolute inset-0 hero-grid opacity-30 pointer-events-none" />
 
       <div className="section-container relative">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary/10 text-secondary text-xs font-heading font-600 mb-8">
-            <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse" />
-            Actively Seeking Data Analytics, BI &amp; Data Science Roles
+          <div className="status-badge mb-8 mx-auto w-fit">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary" />
+            </span>
+            Open to Data Analyst · BI · Reporting · Healthcare Analytics Roles
           </div>
 
           <h2 className="text-3xl md:text-4xl font-heading font-800 text-foreground mb-4">
             Ready to Deliver{" "}
-            <span className="gradient-text">Data-Driven Impact</span>
+            <span className="gradient-text">Measurable Analytics Impact</span>
           </h2>
 
-          <p className="text-muted-foreground text-sm md:text-base mb-6 max-w-xl mx-auto leading-relaxed">
-            Seeking full-time opportunities in data analytics, business intelligence, or data science — bringing TCS infrastructure analytics, Saayam for All nonprofit analytics, UDM graduate project work, and hands-on machine learning skills.
+          <p className="text-muted-foreground text-sm md:text-base mb-8 max-w-xl mx-auto leading-relaxed">
+            Seeking full-time roles in data analytics, business intelligence, and operational reporting —
+            bringing enterprise infrastructure analytics, nonprofit platform experience, and healthcare
+            analytics projects to your team.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-w-lg mx-auto mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto mb-8 text-left">
             {contactHighlights.map((h) => (
-              <div key={h} className="flex items-start gap-1.5 text-left">
-                <CheckCircle size={12} className="text-secondary mt-0.5 shrink-0" />
-                <span className="text-[11px] text-muted-foreground">{h}</span>
+              <div key={h} className="flex items-start gap-2 card-elevated !transform-none !shadow-none px-4 py-3">
+                <CheckCircle size={14} className="text-secondary mt-0.5 shrink-0" />
+                <span className="text-xs text-muted-foreground leading-relaxed">{h}</span>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-wrap justify-center gap-2 mb-8 text-xs text-muted-foreground">
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
             {contactTags.map((tag) => (
-              <span key={tag} className="px-3 py-1.5 rounded-lg bg-muted border border-border font-medium">{tag}</span>
+              <span key={tag} className="skill-chip">
+                {tag}
+              </span>
             ))}
           </div>
 
           <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 mb-10">
-            <a href={`mailto:${contact.email}?subject=Data%20Analyst%20Opportunity`} className="btn-primary">
+            <a href={mailto} className="btn-primary">
               <Mail size={16} /> Get In Touch
             </a>
-            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="btn-outline">
+            <a
+              href={contact.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline"
+            >
               <Linkedin size={16} /> Connect on LinkedIn
             </a>
-            <button type="button" onClick={handleDownload} disabled={downloading} className="btn-outline">
-              <ArrowUpRight size={16} /> {downloading ? "Generating…" : "Download Resume"}
+            <button
+              type="button"
+              onClick={handleDownload}
+              disabled={downloading}
+              className="btn-outline disabled:opacity-50"
+            >
+              <ArrowUpRight size={16} /> {downloading ? "Generating PDF…" : "Download Resume"}
             </button>
-            <a href={contact.github} target="_blank" rel="noopener noreferrer" className="btn-outline">
+            <a
+              href={contact.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline"
+            >
               <Github size={16} /> GitHub
+            </a>
+            <a
+              href={contact.portfolioUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline"
+            >
+              <ExternalLink size={16} /> Portfolio
             </a>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
-              <MapPin size={14} />
+              <MapPin size={14} className="text-primary" />
               {contact.location}
             </div>
             <div className="flex items-center gap-2">
-              <Phone size={14} />
+              <Phone size={14} className="text-primary" />
               {contact.phone}
             </div>
             <div className="flex items-center gap-2">
-              <Mail size={14} />
-              {contact.email}
+              <Mail size={14} className="text-primary" />
+              <a href={mailto} className="hover:text-primary transition-colors">
+                {contact.email}
+              </a>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ export default function Skills() {
               <h3 className="font-heading font-800 text-base text-foreground mb-5">{g.title}</h3>
               <div className="flex flex-wrap gap-2">
                 {g.skills.map((s) => (
-                  <span key={s} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-muted text-muted-foreground border border-border hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-200 cursor-default">
+                  <span key={s} className="skill-chip cursor-default">
                     {s}
                   </span>
                 ))}

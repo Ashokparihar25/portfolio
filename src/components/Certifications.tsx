@@ -1,4 +1,5 @@
 import { Award, GraduationCap, Trophy } from "lucide-react";
+import DocumentViewerModal from "@/components/DocumentViewerModal";
 import { education, certifications, achievements } from "@/data/portfolio";
 
 export default function Certifications() {
@@ -22,14 +23,13 @@ export default function Certifications() {
                     {e.detail && (
                       <p className="text-xs text-muted-foreground leading-relaxed mt-2">{e.detail}</p>
                     )}
-                    {e.download && (
-                      <a
-                        href={e.download.href}
-                        download={e.download.filename}
-                        className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg text-[11px] font-heading font-600 bg-primary/10 text-primary border border-primary/25 hover:bg-primary/15 transition-all"
-                      >
-                        {e.download.label}
-                      </a>
+                    {e.viewer && (
+                      <DocumentViewerModal
+                        triggerLabel={e.viewer.label}
+                        title={e.viewer.title}
+                        subtitle={e.viewer.subtitle}
+                        src={e.viewer.href}
+                      />
                     )}
                   </div>
                 </div>

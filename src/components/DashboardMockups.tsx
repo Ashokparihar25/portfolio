@@ -170,7 +170,7 @@ const dashboards = [
 
 export default function DashboardMockups() {
   return (
-    <section id="gallery" className="section-padding bg-muted/30">
+    <section id="gallery" className="section-padding section-alt">
       <div className="section-container">
         <h2 className="text-3xl md:text-4xl font-heading font-800 text-foreground section-header">Project Analytics Highlights</h2>
         <div className="gradient-bar mb-4" />

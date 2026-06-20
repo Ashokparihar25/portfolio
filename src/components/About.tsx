@@ -5,12 +5,12 @@ const icons = [Database, BarChart3, BrainCircuit, Cloud];
 
 export default function About() {
   return (
-    <section id="about" className="section-padding bg-muted/30">
+    <section id="about" className="section-padding section-alt">
       <div className="section-container">
         <h2 className="text-3xl md:text-4xl font-heading font-800 text-foreground section-header">About Me</h2>
         <div className="gradient-bar mb-4" />
         <p className="section-subtitle">
-          Data analytics professional with enterprise, academic, nonprofit, and research experience.
+          Data analytics professional with enterprise, nonprofit, and research experience — focused on BI, KPI reporting, and measurable business impact.
         </p>
 
         <div className="grid md:grid-cols-3 gap-10">

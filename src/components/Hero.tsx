@@ -1,88 +1,146 @@
-import { ArrowDown, Briefcase, FileText, Github, Linkedin, Mail } from "lucide-react";
-import profilePhoto from "@/assets/profile-photo.jpeg";
-import { contact, heroStats, summary } from "@/data/portfolio";
+import {
+  ArrowDown,
+  Briefcase,
+  FileText,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+} from "lucide-react";
+import { contact, heroStats, heroKeywords, summary } from "@/data/portfolio";
 import { useResumeDownload } from "@/hooks/useResumeDownload";
+import HeroBackground from "@/components/HeroBackground";
+import HeroProfilePanel from "@/components/HeroProfilePanel";
 
 export default function Hero() {
   const { handleDownload, downloading } = useResumeDownload();
 
   return (
-    <section className="relative min-h-screen flex items-center data-grid-bg pt-16">
-      <div className="section-container w-full py-12 md:py-0">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16">
-          <div className="flex flex-col items-center lg:hidden mb-8 animate-fade-up">
-            <div className="relative">
-              <div className="w-44 h-44 rounded-2xl p-[3px] bg-gradient-to-br from-primary via-secondary to-primary/60 shadow-xl">
-                <img
-                  src={profilePhoto}
-                  alt={`${contact.name} – Data Analyst`}
-                  className="w-full h-full rounded-[13px] object-cover object-top"
-                />
-              </div>
-            </div>
-            <p className="mt-3 text-xs font-heading font-600 text-muted-foreground tracking-wide text-center">
-              Data Analytics · SQL · Python · Power BI · Machine Learning
-            </p>
-          </div>
+    <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+      <HeroBackground />
 
-          <div className="max-w-3xl lg:flex-1">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-xs font-heading font-600 mb-6 animate-fade-up">
-              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-              Open to Data Analytics, BI &amp; Data Science Roles
+      <div className="section-container w-full py-14 md:py-20 relative z-10">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:gap-14 xl:gap-16">
+          <HeroProfilePanel className="lg:hidden mb-10 animate-fade-up max-w-[280px] mx-auto" />
+
+          <div className="max-w-2xl lg:flex-1 hero-content-panel">
+            <div className="status-badge mb-6 animate-fade-up">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary" />
+              </span>
+              Open to Data Analyst · BI · Reporting · Operations Roles
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-heading font-800 text-foreground leading-[1.1] mb-5 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-              Turning <span className="gradient-text">Complex Data</span> Into{" "}
-              <span className="gradient-text">Actionable Insights</span>
+            <h1
+              className="text-[2rem] sm:text-5xl lg:text-[3.25rem] xl:text-[3.5rem] font-heading font-800 text-foreground leading-[1.08] mb-5 animate-fade-up"
+              style={{ animationDelay: "0.08s" }}
+            >
+              Turning{" "}
+              <span className="gradient-text">Complex Data</span>
+              <br className="hidden sm:block" />
+              {" "}Into{" "}
+              <span className="gradient-text">Business Impact</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-foreground/80 font-heading font-600 mb-3 animate-fade-up" style={{ animationDelay: "0.18s" }}>
-              {contact.name} · {contact.title}
+            <p
+              className="text-base sm:text-lg text-foreground/90 font-heading font-600 mb-2 animate-fade-up"
+              style={{ animationDelay: "0.14s" }}
+            >
+              {contact.name}
+            </p>
+            <p
+              className="text-sm sm:text-base text-primary/90 font-mono mb-4 animate-fade-up"
+              style={{ animationDelay: "0.18s" }}
+            >
+              {contact.title}
             </p>
 
-            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mb-8 leading-relaxed animate-fade-up" style={{ animationDelay: "0.25s" }}>
+            <p
+              className="text-sm sm:text-[15px] text-muted-foreground max-w-xl mb-6 leading-relaxed animate-fade-up"
+              style={{ animationDelay: "0.22s" }}
+            >
               {summary.short}
             </p>
 
-            <div className="flex flex-wrap gap-3 mb-6 animate-fade-up" style={{ animationDelay: "0.35s" }}>
+            <div
+              className="flex flex-wrap gap-2 mb-8 animate-fade-up"
+              style={{ animationDelay: "0.28s" }}
+            >
+              {heroKeywords.map((kw) => (
+                <span key={kw} className="skill-chip">
+                  {kw}
+                </span>
+              ))}
+            </div>
+
+            <div
+              className="flex flex-wrap gap-3 mb-5 animate-fade-up"
+              style={{ animationDelay: "0.34s" }}
+            >
               <a href="#projects" className="btn-primary">
                 <Briefcase size={16} /> View Projects
               </a>
-              <a href={`mailto:${contact.email}?subject=Data%20Analyst%20Opportunity`} className="btn-outline">
-                <Mail size={16} /> Let's Connect
+              <a
+                href={`mailto:${contact.email}?subject=Data%20Analyst%20Opportunity%20%E2%80%94%20Ashok%20Kumar%20Parihar`}
+                className="btn-outline"
+              >
+                <Mail size={16} /> Let&apos;s Connect
               </a>
             </div>
-            <div className="flex flex-wrap gap-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
-              <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs">
+
+            <div
+              className="flex flex-wrap gap-2 animate-fade-up"
+              style={{ animationDelay: "0.4s" }}
+            >
+              <a
+                href={contact.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+                aria-label="LinkedIn profile"
+              >
                 <Linkedin size={14} /> LinkedIn
               </a>
-              <a href={contact.github} target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs">
+              <a
+                href={contact.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+                aria-label="GitHub profile"
+              >
                 <Github size={14} /> GitHub
               </a>
-              <button type="button" onClick={handleDownload} disabled={downloading} className="btn-ghost text-xs">
-                <FileText size={14} /> {downloading ? "Generating…" : "Download Resume"}
+              <button
+                type="button"
+                onClick={handleDownload}
+                disabled={downloading}
+                className="btn-ghost disabled:opacity-50"
+                aria-label="Download resume PDF"
+              >
+                <FileText size={14} /> {downloading ? "Generating PDF…" : "Download Resume"}
               </button>
             </div>
+
+            <div
+              className="flex items-center gap-2 mt-6 text-xs text-muted-foreground animate-fade-up"
+              style={{ animationDelay: "0.45s" }}
+            >
+              <MapPin size={13} className="text-primary shrink-0" />
+              {contact.location}
+            </div>
           </div>
 
-          <div className="hidden lg:flex flex-col items-center lg:flex-shrink-0 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-            <div className="relative">
-              <div className="w-64 h-64 xl:w-72 xl:h-72 rounded-2xl p-[3px] bg-gradient-to-br from-primary via-secondary to-primary/60 shadow-2xl">
-                <img
-                  src={profilePhoto}
-                  alt={`${contact.name} – Data Analyst`}
-                  className="w-full h-full rounded-[13px] object-cover object-top"
-                />
-              </div>
-              <div className="absolute -inset-4 rounded-3xl bg-primary/5 -z-10 blur-2xl" />
-            </div>
-            <p className="mt-4 text-xs font-heading font-600 text-muted-foreground tracking-wide text-center max-w-[16rem]">
-              Data Analytics · SQL · Python · Power BI · Machine Learning
-            </p>
-          </div>
+          <HeroProfilePanel
+            className="hidden lg:block lg:flex-shrink-0 animate-fade-up"
+            style={{ animationDelay: "0.25s" }}
+          />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4 mt-14 md:mt-20 animate-fade-up" style={{ animationDelay: "0.55s" }}>
+        <div
+          className="relative z-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4 mt-16 md:mt-20 animate-fade-up"
+          style={{ animationDelay: "0.5s" }}
+        >
           {heroStats.map((s) => (
             <div key={s.label} className="stat-block">
               <div className="kpi-number">{s.value}</div>
@@ -92,8 +150,13 @@ export default function Hero() {
         </div>
       </div>
 
-      <a href="#about" className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground animate-bounce hidden md:block">
-        <ArrowDown size={20} />
+      <a
+        href="#about"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-primary transition-colors animate-bounce hidden md:flex flex-col items-center gap-1 z-10"
+        aria-label="Scroll to about section"
+      >
+        <span className="text-[10px] uppercase tracking-widest font-medium">Explore</span>
+        <ArrowDown size={18} />
       </a>
     </section>
   );
