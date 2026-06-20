@@ -57,7 +57,7 @@ export default function Contact() {
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 mb-10">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 mb-10 mobile-contact-actions">
             <a href={mailto} className="btn-primary">
               <Mail size={16} /> Get In Touch
             </a>

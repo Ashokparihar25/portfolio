@@ -55,8 +55,8 @@ export default function CaseStudies() {
             const Icon = projectIcons[i] ?? Users;
             const ctas = projectCtas[i] ?? [];
             return (
-              <div key={i} className="card-elevated overflow-hidden">
-                <div className="p-6 md:p-8 pb-0">
+              <div key={i} className="card-elevated overflow-hidden mobile-project-card">
+                <div className="p-5 sm:p-6 md:p-8 pb-0">
                   <div className="flex items-start gap-4 mb-2">
                     <div className="p-3 rounded-xl shrink-0" style={{ background: "var(--hero-gradient)" }}>
                       <Icon size={22} className="text-primary-foreground" />
@@ -85,8 +85,8 @@ export default function CaseStudies() {
                   </div>
                 </div>
 
-                <div className="p-6 md:p-8 pt-5">
-                  <div className="grid md:grid-cols-3 gap-5 mb-6">
+                <div className="p-5 sm:p-6 md:p-8 pt-5">
+                  <div className="grid md:grid-cols-3 gap-4 sm:gap-5 mb-6">
                     {[
                       { label: "The Challenge", value: s.problem },
                       { label: "My Approach", value: s.approach },

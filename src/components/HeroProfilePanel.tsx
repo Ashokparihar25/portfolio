@@ -75,6 +75,10 @@ export default function HeroProfilePanel({ className = "", style }: HeroProfileP
             className="w-full h-full rounded-[13px] object-cover object-[center_18%]"
           />
         </div>
+        <div className="hero-mobile-photo-overlay lg:hidden" aria-hidden="true">
+          <p className="hero-mobile-photo-name">{contact.name}</p>
+          <p className="hero-mobile-photo-title">{contact.title}</p>
+        </div>
       </div>
     </div>
   );

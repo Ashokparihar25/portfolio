@@ -306,7 +306,7 @@ export default function DocumentViewerModal({
       </DialogTrigger>
 
       <DialogContent
-        className="doc-viewer-modal max-w-[min(960px,96vw)] w-full h-[min(88vh,900px)] p-0 gap-0 overflow-hidden border-primary/20 bg-card/95 backdrop-blur-xl flex flex-col [&>button:last-of-type]:hidden"
+        className="doc-viewer-modal max-w-[min(960px,96vw)] w-full h-[min(88vh,900px)] max-sm:h-[100dvh] max-sm:max-w-none max-sm:rounded-none max-sm:border-0 p-0 gap-0 overflow-hidden border-primary/20 bg-card/95 backdrop-blur-xl flex flex-col [&>button:last-of-type]:hidden"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <div className="doc-viewer-modal-accent" aria-hidden="true" />
