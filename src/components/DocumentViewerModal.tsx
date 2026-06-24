@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import PptxScrollViewer from "@/components/PptxScrollViewer";
 import PdfScrollViewer from "@/components/PdfScrollViewer";
-import { fitDocxToViewport, isNarrowViewport, NARROW_VIEWPORT_QUERY } from "@/lib/viewerUtils";
+import { fitDocxToViewport, isNarrowViewport, NARROW_VIEWPORT_QUERY, useMobileViewer } from "@/lib/viewerUtils";
 
 export type DocumentKind = "docx" | "pdf" | "pptx";
 
@@ -37,7 +37,12 @@ function loadingCopy(kind: DocumentKind) {
   return { title: "Loading report…", detail: "Rendering pages for in-browser preview" };
 }
 
-function footerCopy(kind: DocumentKind) {
+function footerCopy(kind: DocumentKind, mobile: boolean) {
+  if (mobile) {
+    if (kind === "pptx") return "Scroll for all slides · Pinch to zoom";
+    if (kind === "pdf") return "Scroll for all pages · Pinch to zoom";
+    return "Scroll to read · Pinch to zoom";
+  }
   if (kind === "pptx") return "Scroll down to view all slides";
   if (kind === "pdf") return "Scroll inside the viewer to read all pages";
   return "Scroll down to read the full document";
@@ -73,43 +78,94 @@ export default function DocumentViewerModal({
   const [progress, setProgress] = useState<string | null>(null);
   const [showScrollHint, setShowScrollHint] = useState(false);
   const [pptxBuffer, setPptxBuffer] = useState<ArrayBuffer | null>(null);
+  const [pdfBuffer, setPdfBuffer] = useState<ArrayBuffer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [useScrollPdf, setUseScrollPdf] = useState(false);
+  const [useScrollPdf, setUseScrollPdf] = useState(() => useMobileViewer());
+  const [mobileViewer, setMobileViewer] = useState(() => useMobileViewer());
   const loadIdRef = useRef(0);
   const pptxTimeoutRef = useRef<number | null>(null);
+  const pdfTimeoutRef = useRef<number | null>(null);
 
   const pdfViewerSrc = `${src}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`;
 
   const cleanup = () => {
     if (containerRef.current) containerRef.current.innerHTML = "";
     setPptxBuffer(null);
+    setPdfBuffer(null);
   };
 
   useEffect(() => {
-    setUseScrollPdf(isNarrowViewport());
+    const sync = () => {
+      const mobile = isNarrowViewport();
+      setUseScrollPdf(mobile);
+      setMobileViewer(mobile);
+    };
+    sync();
     const media = window.matchMedia(NARROW_VIEWPORT_QUERY);
-    const onChange = () => setUseScrollPdf(media.matches);
-    media.addEventListener("change", onChange);
-    return () => media.removeEventListener("change", onChange);
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
   }, []);
 
   useEffect(() => {
-    if (!open || !isPdf) return;
+    if (!open || !isPdf) {
+      if (!open) setPdfBuffer(null);
+      return;
+    }
 
+    const loadId = ++loadIdRef.current;
     setLoading(true);
     setError(null);
-    setProgress(useScrollPdf ? "Loading PDF pages…" : "Opening PDF…");
     setShowScrollHint(false);
+    setPdfBuffer(null);
 
-    if (useScrollPdf) return;
+    if (useScrollPdf) {
+      setProgress("Fetching research paper…");
+
+      void (async () => {
+        try {
+          const buffer = await fetchAsset(src);
+          if (loadId !== loadIdRef.current) return;
+          setPdfBuffer(buffer);
+          setProgress("Rendering PDF pages…");
+
+          pdfTimeoutRef.current = window.setTimeout(() => {
+            if (loadId !== loadIdRef.current) return;
+            setError("Unable to open this PDF in the browser viewer. Please try again.");
+            setLoading(false);
+            setProgress(null);
+          }, 90000);
+        } catch {
+          if (loadId === loadIdRef.current) {
+            setError("Unable to open this PDF in the browser viewer. Please try again.");
+            setLoading(false);
+            setProgress(null);
+          }
+        }
+      })();
+
+      return () => {
+        loadIdRef.current += 1;
+        if (pdfTimeoutRef.current != null) {
+          window.clearTimeout(pdfTimeoutRef.current);
+          pdfTimeoutRef.current = null;
+        }
+      };
+    }
+
+    setProgress("Opening PDF…");
 
     const fallback = window.setTimeout(() => {
-      setLoading(false);
-      setProgress(null);
+      if (loadId === loadIdRef.current) {
+        setLoading(false);
+        setProgress(null);
+      }
     }, 2500);
 
-    return () => window.clearTimeout(fallback);
+    return () => {
+      loadIdRef.current += 1;
+      window.clearTimeout(fallback);
+    };
   }, [open, isPdf, src, useScrollPdf]);
 
   useEffect(() => {
@@ -190,11 +246,18 @@ export default function DocumentViewerModal({
         tick();
       });
 
+    const applyDocxFit = (container: HTMLDivElement) => {
+      if (!isNarrowViewport()) return;
+      fitDocxToViewport(container);
+      requestAnimationFrame(() => fitDocxToViewport(container));
+      window.setTimeout(() => fitDocxToViewport(container), 120);
+    };
+
     const renderWithMammoth = async (container: HTMLDivElement, buffer: ArrayBuffer) => {
       const mammoth = await import("mammoth");
       const result = await mammoth.convertToHtml({ arrayBuffer: buffer });
       container.innerHTML = `<article class="doc-viewer-article">${result.value}</article>`;
-      if (isNarrowViewport()) fitDocxToViewport(container);
+      applyDocxFit(container);
     };
 
     const renderWithDocxPreview = async (container: HTMLDivElement, buffer: ArrayBuffer) => {
@@ -204,14 +267,14 @@ export default function DocumentViewerModal({
         className: "docx-viewer-page",
         inWrapper: true,
         ignoreWidth: narrow,
-        ignoreHeight: false,
+        ignoreHeight: narrow,
         breakPages: true,
         renderHeaders: true,
         renderFooters: true,
         renderFootnotes: true,
         renderEndnotes: true,
       });
-      if (narrow) fitDocxToViewport(container);
+      applyDocxFit(container);
     };
 
     const loadDocument = async () => {
@@ -232,11 +295,16 @@ export default function DocumentViewerModal({
         if (loadId !== loadIdRef.current) return;
 
         setProgress("Rendering document…");
-        try {
-          await renderWithDocxPreview(container, buffer);
-        } catch {
-          container.innerHTML = "";
+        const narrow = isNarrowViewport();
+        if (narrow) {
           await renderWithMammoth(container, buffer);
+        } else {
+          try {
+            await renderWithDocxPreview(container, buffer);
+          } catch {
+            container.innerHTML = "";
+            await renderWithMammoth(container, buffer);
+          }
         }
 
         if (loadId !== loadIdRef.current) return;
@@ -259,8 +327,29 @@ export default function DocumentViewerModal({
 
     void loadDocument();
 
+    let resizeObserver: ResizeObserver | null = null;
+    let resizeTimer: number | null = null;
+
+    if (isNarrowViewport()) {
+      void waitForContainer().then((container) => {
+        if (loadId !== loadIdRef.current) return;
+        resizeObserver = new ResizeObserver(() => {
+          if (loadId !== loadIdRef.current || !containerRef.current) return;
+          if (resizeTimer != null) window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(() => {
+            if (containerRef.current) fitDocxToViewport(containerRef.current);
+          }, 150);
+        });
+        resizeObserver.observe(container);
+        const scrollParent = container.closest(".doc-viewer-scroll");
+        if (scrollParent) resizeObserver.observe(scrollParent);
+      });
+    }
+
     return () => {
       loadIdRef.current += 1;
+      if (resizeTimer != null) window.clearTimeout(resizeTimer);
+      resizeObserver?.disconnect();
       cleanup();
     };
   }, [open, src, kind, isPdf, isPptx]);
@@ -277,17 +366,32 @@ export default function DocumentViewerModal({
     return () => scrollEl.removeEventListener("scroll", hideHint);
   }, [showScrollHint]);
 
-  const handlePdfLoad = () => {
+  const handlePdfLoad = useCallback(() => {
+    if (pdfTimeoutRef.current != null) {
+      window.clearTimeout(pdfTimeoutRef.current);
+      pdfTimeoutRef.current = null;
+    }
     setLoading(false);
     setProgress(null);
     setError(null);
     setShowScrollHint(useScrollPdf);
-  };
+  }, [useScrollPdf]);
 
-  const handlePdfError = () => {
+  const handlePdfProgress = useCallback((page: number, total: number) => {
+    setProgress(`Rendering page ${page} of ${total}…`);
+    if (page === 1) {
+      setLoading(false);
+    }
+  }, []);
+
+  const handlePdfError = useCallback(() => {
+    if (pdfTimeoutRef.current != null) {
+      window.clearTimeout(pdfTimeoutRef.current);
+      pdfTimeoutRef.current = null;
+    }
     setLoading(false);
     setError("Unable to open this PDF in the browser viewer. Please try again.");
-  };
+  }, []);
 
   const handlePptxReady = useCallback(() => {
     if (pptxTimeoutRef.current != null) {
@@ -359,6 +463,8 @@ export default function DocumentViewerModal({
         <div
           ref={scrollRef}
           className={`doc-viewer-scroll flex-1 min-h-0 relative ${
+            mobileViewer ? "doc-viewer-scroll-mobile" : ""
+          } ${
             isPdf && !useScrollPdf
               ? "doc-viewer-scroll-pdf overflow-hidden flex flex-col"
               : "overflow-y-auto overflow-x-hidden overscroll-contain"
@@ -407,11 +513,12 @@ export default function DocumentViewerModal({
             </div>
           )}
 
-          {isPdf && open && !error && useScrollPdf && (
+          {isPdf && open && !error && useScrollPdf && pdfBuffer && (
             <PdfScrollViewer
-              src={src}
+              buffer={pdfBuffer}
               onReady={handlePdfLoad}
               onError={handlePdfError}
+              onProgress={handlePdfProgress}
             />
           )}
 
@@ -448,7 +555,7 @@ export default function DocumentViewerModal({
         <div className="shrink-0 flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 border-t border-border/60 bg-muted/20 max-md:pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
           <p className="text-[10px] sm:text-xs text-muted-foreground flex items-center gap-1.5">
             <ScrollText size={12} className="text-primary/70 shrink-0" />
-            {footerCopy(kind)} ·{" "}
+            {footerCopy(kind, mobileViewer)} ·{" "}
             <span className="hidden md:inline">Press Esc to close</span>
             <span className="md:hidden">Tap Close to exit</span>
           </p>

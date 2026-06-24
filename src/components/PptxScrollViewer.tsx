@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { parse } from "@pagus-kit/core";
 import { buildFontSubstitutes, renderSlide } from "@pagus-kit/renderer";
-import { measureViewerWidth } from "@/lib/viewerUtils";
+import { cleanPptxSvg, getDeckContentWidth, getDevicePixelRatio, isNarrowViewport } from "@/lib/viewerUtils";
 
 type PptxScrollViewerProps = {
   buffer: ArrayBuffer;
@@ -24,30 +24,66 @@ function applyShrinkFit(root: ParentNode) {
   });
 }
 
+function mountSlideSvg(
+  viewEl: HTMLElement,
+  svgMarkup: string,
+  displayWidth: number,
+  displayHeight: number,
+) {
+  viewEl.innerHTML = cleanPptxSvg(svgMarkup);
+  viewEl.style.width = `${displayWidth}px`;
+  viewEl.style.height = `${displayHeight}px`;
+  viewEl.style.maxWidth = "100%";
+  viewEl.style.margin = "0 auto";
+  viewEl.style.overflow = "hidden";
+  viewEl.style.flexShrink = "0";
+
+  const svg = viewEl.querySelector("svg");
+  if (svg) {
+    svg.style.display = "block";
+    svg.style.width = "100%";
+    svg.style.height = "100%";
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  }
+}
+
 function renderDeck(container: HTMLDivElement, buffer: ArrayBuffer, contentWidth: number) {
   return parse(buffer).then((presentation) => {
     const fontSubstitutes = buildFontSubstitutes(presentation.fonts, {});
-    const available = Math.max(280, contentWidth - 16);
-    const scale = available / presentation.slideSize.width;
-    const scaledHeight = (available * presentation.slideSize.height) / presentation.slideSize.width;
+    const dpr = getDevicePixelRatio();
+    const narrow = isNarrowViewport();
+    const displayWidth = contentWidth;
+    const displayScale = displayWidth / presentation.slideSize.width;
+    const renderScale = displayScale * dpr;
+    const displayHeight = (displayWidth * presentation.slideSize.height) / presentation.slideSize.width;
 
     container.innerHTML = "";
 
     presentation.slides.forEach((slide, index) => {
       const slideEl = document.createElement("div");
       slideEl.className = "pptx-scroll-slide";
-      slideEl.style.height = `${scaledHeight}px`;
+      slideEl.style.width = "100%";
+      slideEl.style.maxWidth = "100%";
+      slideEl.style.height = `${displayHeight}px`;
+      slideEl.style.minHeight = `${displayHeight}px`;
+      slideEl.style.display = "flex";
+      slideEl.style.alignItems = "flex-start";
+      slideEl.style.justifyContent = "center";
 
       const viewEl = document.createElement("div");
       viewEl.className = "pptx-scroll-slide-view";
 
       const rendered = renderSlide(slide, presentation.slideSize, {
-        scale,
+        scale: renderScale,
         fontSubstitutes,
       });
 
-      viewEl.innerHTML = rendered.svg;
+      mountSlideSvg(viewEl, rendered.svg, displayWidth, displayHeight);
       slideEl.appendChild(viewEl);
+
+      if (!narrow) {
+        applyShrinkFit(viewEl);
+      }
 
       const label = document.createElement("span");
       label.className = "pptx-scroll-slide-number";
@@ -56,8 +92,6 @@ function renderDeck(container: HTMLDivElement, buffer: ArrayBuffer, contentWidth
 
       container.appendChild(slideEl);
     });
-
-    applyShrinkFit(container);
 
     if (container.children.length === 0) {
       throw new Error("No slides rendered.");
@@ -79,9 +113,9 @@ export default function PptxScrollViewer({ buffer, onReady, onError }: PptxScrol
     let cancelled = false;
     const renderId = ++renderIdRef.current;
 
-    const run = async (width: number) => {
+    const run = async (contentWidth: number) => {
       try {
-        await renderDeck(container, buffer, width);
+        await renderDeck(container, buffer, contentWidth);
         if (cancelled || renderId !== renderIdRef.current || notifiedRef.current) return;
         notifiedRef.current = true;
         requestAnimationFrame(() => onReady?.());
@@ -93,23 +127,26 @@ export default function PptxScrollViewer({ buffer, onReady, onError }: PptxScrol
       }
     };
 
-    const scheduleRender = (width: number, immediate = false) => {
+    const scheduleRender = (immediate = false) => {
       if (resizeTimerRef.current != null) {
         window.clearTimeout(resizeTimerRef.current);
       }
+      const contentWidth = getDeckContentWidth(container);
+      if (contentWidth <= 0) return;
+
       if (immediate) {
-        void run(width);
+        void run(contentWidth);
         return;
       }
+
       resizeTimerRef.current = window.setTimeout(() => {
-        if (!cancelled && width > 0) void run(width);
+        if (!cancelled) void run(getDeckContentWidth(container));
       }, 150);
     };
 
     const attempt = (immediate = false) => {
-      const width = measureViewerWidth(container);
-      if (width <= 0) return false;
-      scheduleRender(width, immediate);
+      if (getDeckContentWidth(container) <= 0) return false;
+      scheduleRender(immediate);
       return true;
     };
 
@@ -123,9 +160,7 @@ export default function PptxScrollViewer({ buffer, onReady, onError }: PptxScrol
 
     const observer = new ResizeObserver(() => {
       if (cancelled) return;
-      const width = measureViewerWidth(container);
-      if (width <= 0) return;
-      scheduleRender(width, false);
+      scheduleRender(false);
     });
 
     observer.observe(container);
